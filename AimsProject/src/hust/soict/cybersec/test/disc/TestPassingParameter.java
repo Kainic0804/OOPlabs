@@ -1,6 +1,6 @@
 package hust.soict.cybersec.test.disc;
 
-import hust.soict.cybersec.aims.disc.DigitalVideoDisc;
+import hust.soict.cybersec.aims.media.DigitalVideoDisc;
 
 public class TestPassingParameter {
     public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class TestPassingParameter {
     }
 
     /* Swap method code can correctly swap two objects
-    public static void swap (hust.soict.cybersec.aims.disc.DigitalVideoDisc o1, hust.soict.cybersec.aims.disc.DigitalVideoDisc o2){
+    public static void swap (hust.soict.cybersec.aims.media.DigitalVideoDisc o1, hust.soict.cybersec.aims.media.DigitalVideoDisc o2){
         String tmp = o1.getTitle();
         o1.setTitle(o2.getTitle());
         o2.setTitle(tmp);
