@@ -1,40 +1,32 @@
 package hust.soict.cybersec.aims.store;
 
-import hust.soict.cybersec.aims.media.DigitalVideoDisc;
+import java.util.ArrayList;
+import hust.soict.cybersec.aims.media.Media;
 
 public class Store {
-    private DigitalVideoDisc[] itemInStore;
-    private int itemCount;
+    private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 
-    public Store() {
-        itemInStore = new DigitalVideoDisc[1000];
-        itemCount = 0;
-    }
-
-    public void addDVD(DigitalVideoDisc dvd) {
-        if (itemCount < itemInStore.length) {
-            itemInStore[itemCount] = dvd;
-            itemCount++;
-            System.out.println(dvd + " added to the store");
+    public void addMedia(Media media) {
+        if (itemsInStore.contains(media)) {
+            System.out.println("Media already added to the store");
         }
         else {
-            System.out.println("The storage is full");
+            itemsInStore.add(media);
+            System.out.println("Added media to the store");
         }
     }
 
-    public void removeDVD(DigitalVideoDisc dvd) {
-        for (int i = 0; i < itemCount; i++) {
-            if (itemInStore[i] == dvd) {
-                for (int j = i + 1; j < itemCount - 1; j++) {
-                    itemInStore[j] = itemInStore[j + 1];
-                }
-                itemInStore[itemCount - 1] = null;
-                itemCount--;
-                System.out.println(dvd + " removed from the store");
-                return;
-            }
-
+    public void removeMedia(Media media) {
+        if (itemsInStore.contains(media)) {
+            itemsInStore.remove(media);
+            System.out.println("Removed media from the store");
         }
-        System.out.println("Cannot find the item");
+        else {
+            System.out.println("Media does not exist in the store");
+        }
+    }
+
+    public ArrayList<Media> getItemsInStore() {
+        return itemsInStore;
     }
 }
