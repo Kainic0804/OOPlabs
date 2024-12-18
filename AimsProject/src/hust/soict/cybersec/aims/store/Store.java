@@ -1,40 +1,50 @@
 package hust.soict.cybersec.aims.store;
-
-import hust.soict.cybersec.aims.disc.DigitalVideoDisc;
+import hust.soict.cybersec.aims.media.*;
+import java.util.*;
 
 public class Store {
-    private DigitalVideoDisc[] itemInStore;
-    private int itemCount;
+    private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 
-    public Store() {
-        itemInStore = new DigitalVideoDisc[1000];
-        itemCount = 0;
-    }
-
-    public void addDVD(DigitalVideoDisc dvd) {
-        if (itemCount < itemInStore.length) {
-            itemInStore[itemCount] = dvd;
-            itemCount++;
-            System.out.println(dvd + " added to the store");
-        }
-        else {
-            System.out.println("The storage is full");
+    public boolean addMedia(Media m){
+        if (!(itemsInStore.contains(m))) {
+            itemsInStore.add(m);
+            return true;
+        } else{
+            return false;
         }
     }
 
-    public void removeDVD(DigitalVideoDisc dvd) {
-        for (int i = 0; i < itemCount; i++) {
-            if (itemInStore[i] == dvd) {
-                for (int j = i + 1; j < itemCount - 1; j++) {
-                    itemInStore[j] = itemInStore[j + 1];
-                }
-                itemInStore[itemCount - 1] = null;
-                itemCount--;
-                System.out.println(dvd + " removed from the store");
-                return;
+    public ArrayList<Media> getItemsInStore() {
+        return itemsInStore;
+    }
+
+    public boolean removeMedia(Media m) {
+        if (itemsInStore.contains(m)) {
+            itemsInStore.remove(m);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int searchMedia(String title) {
+        for (Media m: itemsInStore) {
+            if (m.getTitle().equals(title)){
+                return m.getId();
             }
-
-        }
-        System.out.println("Cannot find the item");
+        } return -1;
     }
+
+    public Media detailsId(int id){
+        for (Media m: itemsInStore) {
+            if (m.getId() == id) {
+                return m;
+            }
+        } return null;
+    }
+
+    public Store(){
+        super();
+    }
+
 }
