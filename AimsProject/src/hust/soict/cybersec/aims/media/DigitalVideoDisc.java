@@ -1,35 +1,37 @@
 package hust.soict.cybersec.aims.media;
 
-public class DigitalVideoDisc extends Disc implements Playable {
-    private static int nbDigitalVideoDiscs = 0;
+import hust.soict.cybersec.aims.exception.PlayerException;
 
-    public DigitalVideoDisc(int id, String title, String category, float cost, int length, String director) {
-        super(id, title, category, cost, length, director);
-        nbDigitalVideoDiscs += 1;
-        setId(nbDigitalVideoDiscs);
+public class DigitalVideoDisc extends Disc {
+    private int id;
+
+    public String getAuthor() {
+        return author;
+    }
+    public int getLength() {
+        return length;
     }
 
-    public DigitalVideoDisc(String title, String category, String director, float cost) {
-        super(title, category, director, cost);
-        nbDigitalVideoDiscs += 1;
-        setId(nbDigitalVideoDiscs);
 
+    public DigitalVideoDisc(int id, String title) {
+        super(id, title);
     }
 
-    @Override
-    public void play() {
-        System.out.println("Playing DVD: " + this.getTitle());
-        System.out.println("DVD Length: " + this.getLength());
+    public DigitalVideoDisc (String title) {
+        super(title);
     }
 
-    @Override
-    public String toString() {
-        return "DVD" + "-" + this.getTitle() + "-" + this.getCategory() + "-" + this.getDirector() + "-" + String.valueOf(this.getLength()) + ": " + String.valueOf(this.getCost()) + "$";
+    public DigitalVideoDisc(int id, String title, String category, int length, String author, float cost) {
+        super(id, title, category, length, author, cost);
     }
+
+    public String play() throws PlayerException {
+        if (this.getLength() > 0) {
+            return "Playing DVD: " + this.getTitle() + "\n DVD Length: " + this.getLength();
+        } else {
+            System.err.println("ERROR: DVD length is non-positive");
+            throw new PlayerException("ERROR: DVD length is non-positive");
+        }
+    }
+
 }
-
-
-
-
-
-

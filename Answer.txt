@@ -1,34 +1,8 @@
-I. Sort media in the cart
-Question: Alternatively, to compare items in the cart, instead of using Comparator, we can use the Comparable interface and override the compareTo()method. You can refer to the Java docs to see the information of this interface. 
-Suppose we are taking this Comparable interface approach
-- What class should implement the Comparable interface?
-   Media class should implement the Comparable interface.
-- In those classes, how should you implement the compareTo()method be to reflect the ordering that we want?
-   For title then cost ordering:
-	@Override
-	public int compareTo(Media m) {
-		
-		if (this.title.compareTo(m.getTitle()) != 0) {
-			return this.title.compareTo(m.getTitle());
-		} else {
-			return - Float.compare(this.cost, m.getCost());
-		}
-	}
-- Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
-   We can't have more than one ordering rule if we use the Comparable interface approach. From the Comparable doc: "This interface imposes a total ordering on the objects of each class that implements it. This ordering is referred to as the class's natural ordering, and the class's compareTo method is referred to as its natural comparison method." As it imposes a total and natural ordering, there can only be one ordering.
-- Suppose the DVDs has a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this?
-  Create a new class, use the Comparator interface, and and implement a suitable compare() method. Then add the comparator as attribute of the DigitalVideoDisc class.
+1.3 Compare Swing and AWT elements
+	The Top-Level Containers:
+- AWT: The top-level container in AWT is called "Frame".
+- Swing: The top-level container in Swing is called "JFrame". It is an extension of Frame and provides additional features and functionality.
 
-II. Polymorphism with toString() method
-- Iterate through the list and print out the information of the media by using toString() method. Observe what happens and explain in detail.
-  The medias in mediae are printed out. As the code iterates through each media, it calls the toString() method respective to its type. It then prints out what the method returns, which is the media's information.
-
-III. Unique item in a list
-- When overriding the equals() method of the Object class, you will have to cast the Object parameter obj to the type of Object that you are dealing with. For example, in the Media class, you must cast the Object obj to a Media, and then check the equality of the two objects’ attributes as the above requirements (i.e. title for Media; title and length for Track). If the passing object is not an instance of Media, what happens?
-  If we don't case the Object parameter obj to a Media, for example, we can't call methods such as getTitle().
-
-IV. Constructors of whole classes and parent classes
-- Which classes are aggregates of other classes? Checking all constructors of whole classes if they initialize for their parts?
-  Class CompactDisc is the aggregate of class Track.
-  Class Cart and Store are the aggregates of class Media.
-  Aims class is the aggregation of Store class and Cart class.
+	The Class Names of Components:
+- AWT: The class names of AWT components usually start with a capital letter, such as Button, TextField, and Label.
+- Swing: The Swing components generally have the same names as their AWT counterparts but start with a "J" prefix. For example, the equivalent Swing components would be JButton, JTextField, and JLabel.

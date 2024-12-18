@@ -1,62 +1,68 @@
 package hust.soict.cybersec.aims.media;
+import java.util.*;
 
-import java.util.ArrayList;
+import hust.soict.cybersec.aims.exception.PlayerException;
 
-public class CompactDisc extends Disc implements Playable {
+public class CompactDisc extends Disc {
     private String artist;
-    private ArrayList<Track> tracks = new ArrayList<>();
-
-    public CompactDisc(int id, String title, String category, float cost, int length, String director) {
-        super(id, title, category, cost, length, director);
-        this.artist = artist;
-        this.tracks = tracks;
-    }
+    private List<Track> tracks = new ArrayList<Track>();
+    private int id;
 
     public String getArtist() {
         return artist;
     }
 
-    public void addTrack(Track track) {
-        if (tracks.contains(track)) {
-            System.out.println("Track already exists");
-        }
-        else {
-            tracks.add(track);
-            System.out.println("Track added");
-        }
+    public CompactDisc(int id, String title) {
+        super(id, title);
     }
 
-    public void removeTrack(Track track) {
+    public CompactDisc(int id, String title, String category, int length, String author, float cost) {
+        super(id, title, category, length, author, cost);
+    }
+
+    public CompactDisc(String title) {
+        super(title);
+    }
+
+    public boolean addTrack (Track track) {
+        if (!(tracks.contains(track))){
+            tracks.add(track);
+            return true;
+        } else {return false;}
+    }
+
+    public boolean removeTrack(Track track) {
         if (tracks.contains(track)) {
             tracks.remove(track);
-            System.out.println("Track removed");
-        }
-        else {
-            System.out.println("Track does not exist");
+            return true;
+        } else {
+            return false;
         }
     }
 
-    @Override
     public int getLength() {
-        int sumLength = 0;
-        for (Track track : tracks) {
-            sumLength += track.getLength();
-        }
-        return sumLength;
+        int total_length = 0;
+        for (Track track: tracks) {
+            total_length = total_length + track.getLength();
+        } return total_length;
     }
 
-    @Override
-    public void play() {
-        System.out.println("Playing CompactDisc: " + getTitle());
-        System.out.println("Artist: " + getArtist());
-        System.out.println("Length: " + getLength());
-        for (Track track : tracks) {
-            track.play();
-        }
-    }
-
-    @Override
     public String toString() {
-        return "Compact Disc" + "-" + this.getArtist() + "-" + this.getCategory() + "-" + this.getDirector() + "-" + String.valueOf(this.getLength()) + ": " + String.valueOf(this.getCost()) + "$";
+        return "CD by " + artist + super.toString();
+    }
+
+    public String play() throws PlayerException{
+        if (this.getLength() > 0) {
+            String playing = "";
+            for (Track track: tracks) {
+                try {
+                    playing = playing + track.play() + '\n';
+                } catch (PlayerException e) {
+                    throw e;
+                }
+            } return playing;
+        } else {
+            throw new PlayerException("ERROR: CD length is non-positive");
+        }
     }
 }
